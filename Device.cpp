@@ -45,7 +45,7 @@ void DeviceInit()
 {
     attachInterrupt(0, GetEncoderL, CHANGE);
     attachInterrupt(1, GetEncoderR, CHANGE);
-    Lift.attach(3);
-    Claw.attach(4);
+    // Lift.attach(3);
+    // Claw.attach(4);
     //SetOLED(&OLED);
 } 

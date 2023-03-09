@@ -4,8 +4,8 @@
 #include "IRSensor.h"
 #include <Arduino.h>
 #include <Servo.h>
-#include <Adafruit_SSD1306.h>
-#include <splash.h>
+//#include <Adafruit_SSD1306.h>
+//#include <splash.h>
 
 extern Motor MotorL;
 extern Motor MotorR;
