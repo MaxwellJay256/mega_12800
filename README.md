@@ -1,6 +1,6 @@
 # Line Tracking Car
 - Designed for HITSZ 2022 自动化认识与实践课程项目。
-- 所有者：MaxwellJay256，CHENY
+- 所有者：MaxwellJay256，CYCLECHENHUOHUA
 
 ---
 #### 文件说明
