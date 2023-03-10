@@ -23,11 +23,6 @@ Motor::Motor(uint8_t _EN,uint8_t _INL1,uint8_t _INL2,uint8_t _ENCODER_A,uint8_t 
     pinMode(ENCODER_A, INPUT);
     pinMode(ENCODER_B, INPUT);
     encoderVal = 0;
-    if ( isReverse ) {
-        encoderLeapValue = -1;
-    } else {
-        encoderLeapValue = 1;
-    }
 }
 
 void Motor::SetPin(uint8_t _EN,uint8_t _INL1,uint8_t _INL2,uint8_t _ENCODER_A,uint8_t _ENCODER_B)
@@ -44,19 +39,18 @@ void Motor::SetPin(uint8_t _EN,uint8_t _INL1,uint8_t _INL2,uint8_t _ENCODER_A,ui
     pinMode(ENCODER_B, INPUT);
 }
 
-void Motor::GetEncoder()
-{
+void Motor::GetEncoder() {
     if ( digitalRead(ENCODER_A) == LOW ) {
         if ( digitalRead(ENCODER_B) == LOW ) {
-            encoderVal -= encoderLeapValue;
+            encoderVal --;
         } else {
-            encoderVal += encoderLeapValue;
+            encoderVal ++;
         }
     } else {
         if ( digitalRead(ENCODER_B) == LOW ) {
-            encoderVal += encoderLeapValue;
+            encoderVal ++;
         } else {
-            encoderVal -= encoderLeapValue;
+            encoderVal --;
         }
     }
 }
@@ -81,20 +75,30 @@ int Motor::PIDControl(double target)
     return (int)u; 
 }
 
-void Motor::Spin(double _targetVelocity)
-{
-    //targetVelocity = _targetVelocity;
+void Motor::Spin(double _targetVelocity) {
     velocity = (encoderVal / 780.0) * Pi * 2.0 * (1000 / period);
     encoderVal = 0;
     output = PIDControl(_targetVelocity);
-    if ( output >= 0 ) {
-        digitalWrite(INL1, LOW);
-        digitalWrite(INL2, HIGH);
-        analogWrite(EN0, output);
+    if ( !isReverse ) {
+        if ( output >= 0 ) {
+            digitalWrite(INL1, LOW);
+            digitalWrite(INL2, HIGH);
+            analogWrite(EN0, output);
+        } else {
+            digitalWrite(INL1, HIGH);
+            digitalWrite(INL2, LOW);
+            analogWrite(EN0, -output);
+        }
     } else {
-        digitalWrite(INL1, HIGH);
-        digitalWrite(INL2, LOW);
-        analogWrite(EN0, -output);
+        if ( output >= 0 ) {
+            digitalWrite(INL1, HIGH);
+            digitalWrite(INL2, LOW);
+            analogWrite(EN0, output);
+        } else {
+            digitalWrite(INL1, LOW);
+            digitalWrite(INL2, HIGH);
+            analogWrite(EN0, -output);
+        }
     }
 }
 
