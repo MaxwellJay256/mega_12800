@@ -1,12 +1,13 @@
 #include "Device.h"
 
-Motor MotorL(6,8,7,3,4,false);
+Motor MotorL(6,8,7,3,4,true);
 Motor MotorR(10,9,11,18,5,false);//这里引脚口改了一下
 IR L2_IR(46);
 IR L1_IR(44);
 IR Mid_IR(42);
 IR R1_IR(40);
 IR R2_IR(38);
+IR IRGroup[5] = {L2_IR, L1_IR, Mid_IR, R1_IR, R2_IR};
 
 Adafruit_SSD1306 OLED(128,64);
 void SetOLED(Adafruit_SSD1306 *oled) {
@@ -18,7 +19,6 @@ void SetOLED(Adafruit_SSD1306 *oled) {
     oled->display();
 }
 
-//*/
 const int TARGET = 10;
 void DisplayInfo() {
     OLED.clearDisplay();
@@ -35,13 +35,11 @@ void DisplayInfo() {
     OLED.println(MotorR.output);
     OLED.display();     
 }
-//*/
 
 void GetEncoderL() { MotorL.GetEncoder(); }
 void GetEncoderR() { MotorR.GetEncoder(); }
 
-void DeviceInit()
-{
+void DeviceInit() {
     attachInterrupt(1, GetEncoderL, CHANGE);
     attachInterrupt(5, GetEncoderR, CHANGE);
     // Lift.attach(3);

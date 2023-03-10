@@ -14,6 +14,7 @@ extern IR L1_IR;
 extern IR Mid_IR;
 extern IR R1_IR;
 extern IR R2_IR;
+extern IR IRGroup[5];
 
 extern Servo Lift;
 extern Servo Claw;
