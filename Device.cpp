@@ -1,12 +1,14 @@
 #include "Device.h"
 
-Motor MotorL(6,8,7,3,4,true);
-Motor MotorR(10,9,11,18,5,false);//这里引脚口改了一下
+Motor MotorL(9,12,13,3,4,true);
+Motor MotorR(10,11,6,2,5,false);//这里引脚口改了一下
+IR L3_IR(48);
 IR L2_IR(46);
 IR L1_IR(44);
 IR Mid_IR(42);
 IR R1_IR(40);
 IR R2_IR(38);
+IR R3_IR(36);
 IR IRGroup[5] = {L2_IR, L1_IR, Mid_IR, R1_IR, R2_IR};
 
 Adafruit_SSD1306 OLED(128,64);
@@ -41,7 +43,7 @@ void GetEncoderR() { MotorR.GetEncoder(); }
 
 void DeviceInit() {
     attachInterrupt(1, GetEncoderL, CHANGE);
-    attachInterrupt(5, GetEncoderR, CHANGE);
+    attachInterrupt(0, GetEncoderR, CHANGE);
     // Lift.attach(3);
     // Claw.attach(4);
     SetOLED(&OLED);
