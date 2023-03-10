@@ -19,49 +19,43 @@ namespace Drive
 
     double Vc = TARGET;
     double Wc;
-    double GetCarDirection() {  //!这一部分要考虑到不同的转向情况,还要加入优先级
-        static double W;
-        if(Mid_IR.GetIRStatus())
-            W = 0;
+    double GetCarDirection() {  //这一部分要考虑到不同的转向情况,还要加入优先级
+        double W = 0;
+        int numOfData = 0;
         if ( L1_IR.GetIRStatus() )
-            W = Vc / R2;   
+            W += Vc / R2; numOfData ++;
         if ( L2_IR.GetIRStatus() )
-            W = Vc / R1;   
-        if ( R1_IR.GetIRStatus() )
-            W = -(Vc / R2);   
+            W += Vc / R1; numOfData ++;
         if ( R2_IR.GetIRStatus() )
-            W = -(Vc / R1);   
-        return W;
-    }
-     /*if(Mid_IR.GetIRStatus())
-        {
-          vL = TARGET;
-          vR = TARGET;
-
+            W += -(Vc / R1); numOfData ++;
+        if ( R1_IR.GetIRStatus() )
+            W += -(Vc / R2); numOfData ++;
+        if ( Mid_IR.GetIRStatus())
+            W += 0; numOfData ++;
+        return W / numOfData;
+        /*/
+        if(Mid_IR.GetIRStatus()) {
+            vL = TARGET;
+            vR = TARGET;
         }
-        if ( L2_IR.GetIRStatus() )
-        {
+        if ( L2_IR.GetIRStatus() ) {
           vL = 0 * TARGET;
           vR = 0.8 * TARGET;
         }
-               
-        if ( L1_IR.GetIRStatus() )
-        {
+        if ( L1_IR.GetIRStatus() ) {
           vL = 0.9 * TARGET;
           vR = 0.7 * TARGET;
-        }
-           
-        if ( R2_IR.GetIRStatus() )
-        {
+        }  
+        if ( R2_IR.GetIRStatus() ) {
           vL = 0.8 * TARGET;
           vR = 0 * TARGET;
         }
-           
-        if ( R1_IR.GetIRStatus() )
-        {
+        if ( R1_IR.GetIRStatus() ) {
           vL = 0.7 * TARGET;
           vR = 0.9 * TARGET;
-        }*/
+        }
+        //*/
+    }
 
     //一个测试用的经典速度的函数   
     void classic_move() {
@@ -95,6 +89,14 @@ namespace Drive
         MotorR.Spin(vR);*/
         MotorL.Spin(10);
         MotorR.Spin(20);
+    }
+
+    void Turn(double degree, double w) {
+        long timeStamp = millis();
+        long turnTime = degree / 180 * PI / w;
+        while ( millis() <= timeStamp+turnTime ) {
+            Move(0, w);
+        }
     }
 
     void Patrol() {
