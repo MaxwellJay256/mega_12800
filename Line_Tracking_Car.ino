@@ -4,8 +4,6 @@
 #include "Device.h"
 #include "Drive.h"
 
-#define TARGET 15
-
 void Control() {
     Drive::classic_move();
 }
@@ -23,7 +21,7 @@ void setup()
 
 void loop()
 {
-    //DisplayInfo();
+    DisplayInfo();
     Serial.print(MotorL.velocity);
     Serial.print(",");
     Serial.print(MotorR.velocity);

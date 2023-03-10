@@ -61,7 +61,7 @@ void Motor::GetEncoder()
     }
 }
 
-const float Kp = 5, Ti = 140, Td = 80, T = period;
+const float Kp = 5, Ti = 140, Td = 80, T = period; //原先为5 140 80 
 int Motor::PIDControl(double target)
 {
     //离散增量式PID
@@ -86,23 +86,16 @@ void Motor::Spin(double _targetVelocity)
     //targetVelocity = _targetVelocity;
     velocity = (encoderVal / 780.0) * Pi * 2.0 * (1000 / period);
     encoderVal = 0;
-    //output = PIDControl(_targetVelocity);
-    output = _targetVelocity;
+    output = PIDControl(_targetVelocity);
     if ( output >= 0 ) {
         digitalWrite(INL1, LOW);
         digitalWrite(INL2, HIGH);
         analogWrite(EN0, output);
-        //digitalWrite(EN0,HIGH);
     } else {
         digitalWrite(INL1, HIGH);
         digitalWrite(INL2, LOW);
         analogWrite(EN0, -output);
-        //digitalWrite(EN0,-HIGH);
     }
-    //以下可以用来测试正反转：
-    // digitalWrite(INL1, LOW);
-    // digitalWrite(INL2, HIGH);
-    // digitalWrite(EN, HIGH);
 }
 
 Motor::~Motor() {

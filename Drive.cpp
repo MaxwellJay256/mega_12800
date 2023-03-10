@@ -8,7 +8,7 @@ namespace Drive
     const double R1 = 10;//转小弯的转弯半径（厘米）
     const double R2 = 6;//转大弯的转弯半径（厘米）  
     bool isPatrolEnd = false;//巡线是否结束
-
+    //float TARGET = 20;
     double vL, vR;
     void Move(double v, double w) {
         vL = v - w * L / 2.0;
@@ -63,15 +63,14 @@ namespace Drive
           vR = 0.9 * TARGET;
         }*/
 
-    const float TARGET = 20;
     //一个测试用的经典速度的函数   
     void classic_move() {
-        int result = 0, num = 0;  
-        int sensor[] = {A0,A1,A2,A3,A4};  // 用num考虑到了可能的优化方向
+        /*int result = 0, num = 0;  
+        int sensor[] = {-3,-1,0,1,3};  // 用num考虑到了可能的优化方向
         for (int8_t i = 2, j = 2; i >= 0 && j < 5; i--, j++) {// 01234为传感器的编号
-            if (digitalRead(sensor[i]) == LOW)
+            if (digitalRead(sensor[i]) == HIGH)
                 result += (i-2), num++;   //用result来度量不同的偏转程度
-            if (digitalRead(sensor[j]) == LOW)
+            if (digitalRead(sensor[j]) == HIGH)
                 result += (j-2), num++;
         }
         vL = TARGET;
@@ -93,7 +92,9 @@ namespace Drive
             vR = 1.2 * TARGET;
         }
         MotorL.Spin(vL);
-        MotorR.Spin(vR);
+        MotorR.Spin(vR);*/
+        MotorL.Spin(10);
+        MotorR.Spin(20);
     }
 
     void Patrol() {
