@@ -1,11 +1,12 @@
 #include <MsTimer2.h>
 #include "Motor.h"
-#include "IRSensor.h"
+#include "Sensor.h"
 #include "Device.h"
 #include "Drive.h"
 
 void Control() {
     Drive::Patrol();
+    // MotorR.Spin(-10);
 }
 
 void setup()
@@ -22,6 +23,6 @@ void setup()
 void loop()
 {
     DisplayInfo();
-    Drive::PatrolEnd();
+    //Drive::PatrolEnd();
     delay(period);
 }

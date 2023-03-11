@@ -19,65 +19,6 @@ namespace Drive
 
     double Vc = 25;//直线速度（cm/s）
     double Wc;//转弯速度（rad/s）
-    double GetCarDirection() {  //这一部分要考虑到不同的转向情况,还要加入优先级
-        double W = 0;
-        int numOfData = 0,is_big_turn = 0;
-        if ( L3_IR.GetIRStatus() )
-            W += Vc / R3; is_big_turn = 1;
-        if ( L2_IR.GetIRStatus() )
-            W += Vc / R2; numOfData ++;
-        if ( L1_IR.GetIRStatus() )
-            W += Vc / R1; numOfData ++;
-        if ( R3_IR.GetIRStatus() )
-            W += -(Vc / R3); is_big_turn = 1;
-        if ( R2_IR.GetIRStatus() )
-            W += -(Vc / R2); numOfData ++;
-        if ( R1_IR.GetIRStatus() )
-            W += -(Vc / R1); numOfData ++;
-        if ( Mid_IR.GetIRStatus())
-            W += 0; numOfData ++;
-        if (is_big_turn)
-            numOfData = 1;
-        return W / numOfData;
-        /*/
-        if(Mid_IR.GetIRStatus()) {
-            vL = TARGET;
-            vR = TARGET;
-        }
-        if ( L2_IR.GetIRStatus() ) {
-          vL = 0 * TARGET;
-          vR = 0.8 * TARGET;
-        }
-        if ( L1_IR.GetIRStatus() ) {
-          vL = 0.9 * TARGET;
-          vR = 0.7 * TARGET;
-        }  
-        if ( R2_IR.GetIRStatus() ) {
-          vL = 0.8 * TARGET;
-          vR = 0 * TARGET;
-        }
-        if ( R1_IR.GetIRStatus() ) {
-          vL = 0.7 * TARGET;
-          vR = 0.9 * TARGET;
-        }
-        //*/
-    }
-
-    void Turnback() {
-        Drive::Move(0, 10);
-    }
-    void RunTaskFor(void (*task)(), long runTime) {
-        MsTimer2::stop();
-        MsTimer2::set(period, task);
-        long timeCount = 0;
-        MsTimer2::start();
-        while ( timeCount <= runTime ) {
-            timeCount += period;
-            delay(period);
-        }
-        MsTimer2::stop();
-    }
-
     void Patrol() {
         Wc = 0;
         int numOfData = 0;
@@ -112,6 +53,21 @@ namespace Drive
         }
         Wc /= numOfData;
         Move(Vc, Wc);
+    }
+
+    void Turnback() {
+        Move(0, 10);
+    }
+    void RunTaskFor(void (*task)(), long runTime) {
+        MsTimer2::stop();
+        MsTimer2::set(period, task);
+        long timeCount = 0;
+        MsTimer2::start();
+        while ( timeCount <= runTime ) {
+            timeCount += period;
+            delay(period);
+        }
+        MsTimer2::stop();
     }
 
     void Park() {

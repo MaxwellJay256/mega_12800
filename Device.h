@@ -1,7 +1,7 @@
 #ifndef DEVICE_H
 #define DEVICE_H
 #include "Motor.h"
-#include "IRSensor.h"
+#include "Sensor.h"
 #include <Arduino.h>
 #include <Servo.h>
 #include <Adafruit_SSD1306.h>
@@ -17,6 +17,8 @@ extern IR R1_IR;
 extern IR R2_IR;
 extern IR R3_IR;
 extern IR IRGroup[7];
+
+extern UltraSonic Ranger;
 
 extern Servo Lift;
 extern Servo Claw;

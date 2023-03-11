@@ -2,7 +2,7 @@
 #include "Drive.h"
 
 Motor MotorL(9,12,13,3,4,true);
-Motor MotorR(10,11,6,2,14,false);//这里引脚口改了一下
+Motor MotorR(10,11,34,2,14,false);//这里引脚口改了一下
 IR L3_IR(48);
 IR L2_IR(46);
 IR L1_IR(44);
@@ -29,7 +29,7 @@ const int TARGET = 10;
 void DisplayInfo() {
     OLED.clearDisplay();
     OLED.setCursor(0, 0);
-    /*
+    //*/
     OLED.print("Target speed: ");
     OLED.println(TARGET);
     OLED.print("\nLeft speed:  ");
@@ -40,7 +40,8 @@ void DisplayInfo() {
     OLED.println(MotorR.velocity);
     OLED.print("Right output: ");
     OLED.println(MotorR.output);
-    */
+    //*/
+    /*/
     for ( int i=0; i<7; i++ ) {
         if ( IRGroup[i].GetIRStatus() ) {
             OLED.print("+");
@@ -57,7 +58,8 @@ void DisplayInfo() {
     OLED.println(Drive::vL/3.3);
     OLED.print("wR: ");
     OLED.println(Drive::vR/3.3);
-    OLED.display();     
+    OLED.display();
+    //*/
 }
 
 void GetEncoderL() { MotorL.GetEncoder(); }
