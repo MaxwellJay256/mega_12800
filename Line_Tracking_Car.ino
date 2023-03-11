@@ -5,29 +5,23 @@
 #include "Drive.h"
 
 void Control() {
-    Drive::classic_move();
+    Drive::Patrol();
 }
 
 void setup()
 {
-    TCCR1B = TCCR1B & B11111000 | B00000001;//PWM频率调节，设置9、10引脚的PWM输出频率为31372Hz，适合于我们使用的电机
+    //PWM频率调节，设置9、10引脚的PWM输出频率为31372Hz，适合于我们使用的电机
+    TCCR1B = TCCR1B & B11111000 | B00000001;
     DeviceInit();
+    ClawDown();
+    ClawUp();
     MsTimer2::set(period, Control);
     MsTimer2::start();
-    Serial.begin(9600);
-    // ClawDown();
-    // ClawUp();
 }
 
 void loop()
 {
     DisplayInfo();
-    Serial.print(MotorL.velocity);
-    Serial.print(",");
-    Serial.print(MotorR.velocity);
-    Serial.print(",");
-    Serial.print(TARGET);
-    Serial.print("\r\n");
+    Drive::PatrolEnd();
     delay(period);
-    //Drive::PatrolEnd();
 }

@@ -9,12 +9,14 @@
 
 extern Motor MotorL;
 extern Motor MotorR;
+extern IR L3_IR;
 extern IR L2_IR;
 extern IR L1_IR;
 extern IR Mid_IR;
 extern IR R1_IR;
 extern IR R2_IR;
-extern IR IRGroup[5];
+extern IR R3_IR;
+extern IR IRGroup[7];
 
 extern Servo Lift;
 extern Servo Claw;

@@ -10,6 +10,7 @@ class Motor
         float eI, eII, eIII;
         uint8_t EN0, INL1, INL2, ENCODER_A, ENCODER_B; //!这里重名了
         bool isReverse;//是否反转
+        int encoderLeapValue;
     public:
         float velocity;//速度
         int output;//输出模拟值

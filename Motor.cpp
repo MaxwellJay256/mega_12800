@@ -22,7 +22,9 @@ Motor::Motor(uint8_t _EN,uint8_t _INL1,uint8_t _INL2,uint8_t _ENCODER_A,uint8_t 
     pinMode(INL1, OUTPUT);
     pinMode(ENCODER_A, INPUT);
     pinMode(ENCODER_B, INPUT);
+    isReverse = _isReverse;
     encoderVal = 0;
+    encoderLeapValue = isReverse ? -1 : 1;
 }
 
 void Motor::SetPin(uint8_t _EN,uint8_t _INL1,uint8_t _INL2,uint8_t _ENCODER_A,uint8_t _ENCODER_B)
@@ -42,15 +44,15 @@ void Motor::SetPin(uint8_t _EN,uint8_t _INL1,uint8_t _INL2,uint8_t _ENCODER_A,ui
 void Motor::GetEncoder() {
     if ( digitalRead(ENCODER_A) == LOW ) {
         if ( digitalRead(ENCODER_B) == LOW ) {
-            encoderVal --;
+            encoderVal -= encoderLeapValue;
         } else {
-            encoderVal ++;
+            encoderVal += encoderLeapValue;
         }
     } else {
         if ( digitalRead(ENCODER_B) == LOW ) {
-            encoderVal ++;
+            encoderVal += encoderLeapValue;
         } else {
-            encoderVal --;
+            encoderVal -= encoderLeapValue;
         }
     }
 }
@@ -79,26 +81,14 @@ void Motor::Spin(double _targetVelocity) {
     velocity = (encoderVal / 780.0) * Pi * 2.0 * (1000 / period);
     encoderVal = 0;
     output = PIDControl(_targetVelocity);
-    if ( !isReverse ) {
-        if ( output >= 0 ) {
-            digitalWrite(INL1, LOW);
-            digitalWrite(INL2, HIGH);
-            analogWrite(EN0, output);
-        } else {
-            digitalWrite(INL1, HIGH);
-            digitalWrite(INL2, LOW);
-            analogWrite(EN0, -output);
-        }
+    if ( output >= 0 ) {
+        digitalWrite(INL1, LOW);
+        digitalWrite(INL2, HIGH);
+        analogWrite(EN0, output);
     } else {
-        if ( output >= 0 ) {
-            digitalWrite(INL1, HIGH);
-            digitalWrite(INL2, LOW);
-            analogWrite(EN0, output);
-        } else {
-            digitalWrite(INL1, LOW);
-            digitalWrite(INL2, HIGH);
-            analogWrite(EN0, -output);
-        }
+        digitalWrite(INL1, HIGH);
+        digitalWrite(INL2, LOW);
+        analogWrite(EN0, -output);
     }
 }
 

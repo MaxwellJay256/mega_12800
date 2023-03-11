@@ -6,5 +6,5 @@ IR::IR(uint8_t _pin) {
 }
 
 bool IR::GetIRStatus() {
-    return (digitalRead(pin)==LOW);
+    return (digitalRead(pin)==HIGH);
 }

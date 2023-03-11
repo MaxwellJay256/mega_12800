@@ -13,4 +13,9 @@ class IR {
         bool GetIRStatus();
 };
 
+class UltraSonic {
+    private:
+        uint8_t Trig_Pin, Echo_Pin;
+};
+
 #endif

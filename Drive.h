@@ -5,7 +5,7 @@
 
 namespace Drive
 {
-    extern double Vc;
+    extern double Vc, Wc, vL, vR;
     /// @brief 让车体按照一定直线速度和和自转速度移动
     void Move(double v, double w);
     double GetCarDirection();
@@ -13,10 +13,13 @@ namespace Drive
     void PatrolEnd();
     /// @brief 自动巡线
     void Patrol();
-    /// @brief 测试用的函数
-    void classic_move();
 
-    void Turn(double degree, double w);
+    /// @brief 车体旋转一定角度
+    /// @param degree 要旋转的角度(deg)
+    /// @param w 角速度(rad/s)
+    void Turn(double degree);
+
+    void RunTaskFor(void (*task)(), long runTime);
 }
 
 #endif
