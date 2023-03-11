@@ -1,5 +1,5 @@
-#ifndef IRSENSOR_H
-#define IRSENSOR_H
+#ifndef SENSOR_H
+#define SENSOR_H
 #include <Arduino.h>
 
 class IR {
@@ -16,6 +16,15 @@ class IR {
 class UltraSonic {
     private:
         uint8_t Trig_Pin, Echo_Pin;
+        int distance;
+    public:
+        /// @brief 生成超声波传感器对象
+        /// @param _trigPin 
+        /// @param _echoPin 
+        UltraSonic(uint8_t _trigPin, uint8_t _echoPin);
+        /// @brief 超声波测距
+        /// @return 距离(cm)
+        int GetDistance();
 };
 
 #endif
