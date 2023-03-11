@@ -88,7 +88,7 @@ namespace Drive
         MotorL.Spin(vL);
         MotorR.Spin(vR);*/
         MotorL.Spin(10);
-        MotorR.Spin(20);
+        MotorR.Spin(5);
     }
 
     void Turn(double degree, double w) {
