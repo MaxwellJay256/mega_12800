@@ -16,7 +16,7 @@ class IR {
 class UltraSonic {
     private:
         uint8_t Trig_Pin, Echo_Pin;
-        float distance;
+        int distance;
     public:
         /// @brief 生成超声波传感器对象
         /// @param _trigPin 
@@ -24,7 +24,7 @@ class UltraSonic {
         UltraSonic(uint8_t _trigPin, uint8_t _echoPin);
         /// @brief 超声波测距
         /// @return 距离(cm)
-        float GetDistance();
+        int GetDistance();
 };
 
 #endif
