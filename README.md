@@ -6,9 +6,9 @@
 #### 文件说明
 1. [Line_Tracking_car.ino](Line_Tracking_Car.ino)：小车的主程序
 2. [Motor.h](Motor.h)和[Motor.cpp](Motor.cpp)：电机对象的声明和实现，内置PID控制器。
-3. [IRSensor.h](IRSensor.h)和[IRSensor.cpp](IRSensor.cpp)：光电传感器对象的声明和实现。
+3. [Sensor.h](Sensor.h)和[Sensor.cpp](Sensor.cpp)：光电传感器、超声波传感器对象的声明和实现。
 4. [RobotArm.h](RobotArm.h)和[RobotArm.cpp](RobotArm.cpp)：对机械臂的一些操纵函数。
-5. [Device.h](Device.h)和[Device.cpp](Device.cpp)：此处集中定义了电机、光电传感器、机械臂对象，以及对它们的初始化函数。
+5. [Device.h](Device.h)和[Device.cpp](Device.cpp)：此处集中定义了电机、光电传感器、超声波传感器和机械臂对象，以及对它们的初始化函数。
 6. [Drive.h](Drive.h)和[Drive.cpp](Drive.cpp)：调用电机和传感器对象，实现对底盘的操纵，包括巡线。
 #### 本工程的特点
 1. 采用多文件，将功能分散。
