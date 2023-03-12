@@ -11,6 +11,7 @@ IR R1_IR(40);
 IR R2_IR(38);
 IR R3_IR(36);
 IR IRGroup[7] = {L3_IR, L2_IR, L1_IR, Mid_IR, R1_IR, R2_IR, R3_IR};
+UltraSonic Ranger(41,43);
 
 Servo Lift;
 Servo Claw;
@@ -29,7 +30,7 @@ const int TARGET = 10;
 void DisplayInfo() {
     OLED.clearDisplay();
     OLED.setCursor(0, 0);
-    //*/
+    /*/
     OLED.print("Target speed: ");
     OLED.println(TARGET);
     OLED.print("\nLeft speed:  ");
@@ -41,7 +42,7 @@ void DisplayInfo() {
     OLED.print("Right output: ");
     OLED.println(MotorR.output);
     //*/
-    /*/
+    //*/
     for ( int i=0; i<7; i++ ) {
         if ( IRGroup[i].GetIRStatus() ) {
             OLED.print("+");
@@ -66,6 +67,8 @@ void GetEncoderL() { MotorL.GetEncoder(); }
 void GetEncoderR() { MotorR.GetEncoder(); }
 
 void DeviceInit() {
+    MotorL.Initialize();
+    MotorR.Initialize();
     attachInterrupt(1, GetEncoderL, CHANGE);
     attachInterrupt(0, GetEncoderR, CHANGE);
     Lift.attach(8);
