@@ -55,34 +55,40 @@ namespace Drive
         Move(Vc, Wc);
     }
 
-    void Turnback() {
-        Move(0, 10);
+    void Turn() {
+        Move(0, -10);
     }
     void RunTaskFor(void (*task)(), long runTime) {
         MsTimer2::stop();
         MsTimer2::set(period, task);
-        long timeCount = 0;
         MsTimer2::start();
-        while ( timeCount <= runTime ) {
-            timeCount += period;
-            delay(period);
-        }
+        delay(runTime);
         MsTimer2::stop();
     }
 
+    /// @brief 泊车模式，车会自己定住
     void Park() {
         Move(0, 0);
     }
     void PatrolEnd() {
         if ( L3_IR.GetIRStatus() && R3_IR.GetIRStatus() ) {
             //原地旋转180度
-            Drive::RunTaskFor(Turnback, 1700);
+            RunTaskFor(Turn, 1700);
             MsTimer2::set(period, Park);
             MsTimer2::start();
-            ClawDown();//放下物体
-            while (1) {
+            RobotArm::ClawDown();//放下物体
+            while (1) { //进入死循环，程序中止
                 delay(10);
             }
+        }
+    }
+
+    void ObstacleAvoidace() {
+        if ( Ranger.GetDistance() < 15 ) {
+            MsTimer2::stop();
+            RunTaskFor(Turn, 600);
+            MsTimer2::set(period, Patrol);
+            MsTimer2::start();
         }
     }
 }
