@@ -41,12 +41,6 @@ void Motor::SetPin(uint8_t _EN,uint8_t _INL1,uint8_t _INL2,uint8_t _ENCODER_A,ui
     pinMode(ENCODER_B, INPUT);
 }
 
-void Motor::Initialize() {
-    digitalWrite(INL1, LOW);
-    digitalWrite(INL2, LOW);
-    analogWrite(EN0, 0);
-}
-
 void Motor::GetEncoder() {
     if ( digitalRead(ENCODER_A) == LOW ) {
         if ( digitalRead(ENCODER_B) == LOW ) {
