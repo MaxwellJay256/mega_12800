@@ -22,6 +22,8 @@ class UltraSonic {
         /// @param _trigPin 
         /// @param _echoPin 
         UltraSonic(uint8_t _trigPin, uint8_t _echoPin);
+        /// @brief 初始化传感器
+        void Initialize();
         /// @brief 超声波测距
         /// @return 距离(cm)
         float GetDistance();
