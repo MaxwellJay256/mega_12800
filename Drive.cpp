@@ -87,6 +87,7 @@ namespace Drive
         if ( Ranger.GetDistance() < 15 ) {
             MsTimer2::stop();
             RunTaskFor(Turn, 600);
+            delay(500);
             MsTimer2::set(period, Patrol);
             MsTimer2::start();
         }
