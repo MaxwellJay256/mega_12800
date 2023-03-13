@@ -14,6 +14,9 @@ UltraSonic::UltraSonic(uint8_t _trigPin, uint8_t _echoPin) {
     Echo_Pin = _echoPin;
     pinMode(Trig_Pin, OUTPUT);
     pinMode(Echo_Pin, INPUT);
+}
+
+void UltraSonic::Initialize() {
     digitalWrite(Trig_Pin, LOW);
 }
 
