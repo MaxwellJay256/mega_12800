@@ -63,7 +63,7 @@ void Motor::GetEncoder() {
     }
 }
 
-const float Kp = 10, Ti = 5, Td = 5, T = period; //原先为5 140 80 
+const float Kp = 10, Ti = 20, Td = 5, T = period; //原先为5 140 80 
 int Motor::PIDControl(double target)
 {
     //离散增量式PID
