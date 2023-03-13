@@ -26,7 +26,7 @@ class UltraSonic {
         void Initialize();
         /// @brief 超声波测距
         /// @return 距离(cm)
-        int GetDistance();
+        float GetDistance();
 };
 
 #endif
