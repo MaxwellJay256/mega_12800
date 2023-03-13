@@ -66,8 +66,8 @@ void DeviceInit() {
     MotorL.Initialize();
     MotorR.Initialize();
     Ranger.Initialize();
-    attachInterrupt(1, GetEncoderL, CHANGE);
-    attachInterrupt(0, GetEncoderR, CHANGE);
+    attachInterrupt(digitalPinToInterrupt(MotorL.ENCODER_A), GetEncoderL, CHANGE);
+    attachInterrupt(digitalPinToInterrupt(MotorR.ENCODER_A), GetEncoderR, CHANGE);
     Lift.attach(8);
     Claw.attach(5);
     SetOLED(&OLED);
