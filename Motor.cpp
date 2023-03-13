@@ -1,6 +1,6 @@
 #include "Motor.h"
 
-const int period = 10;
+const int period = 20;
 const double Pi = acos(-1);
 
 /// @brief 生成一个电机对象
