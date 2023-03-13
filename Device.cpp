@@ -26,13 +26,11 @@ void SetOLED(Adafruit_SSD1306 *oled) {
     oled->display();
 }
 
-const int TARGET = 10;
 void DisplayInfo() {
     OLED.clearDisplay();
     OLED.setCursor(0, 0);
     /*/
-    OLED.print("Target speed: ");
-    OLED.println(TARGET);
+    OLED.println();
     OLED.print("\nLeft speed:  ");
     OLED.println(MotorL.velocity);
     OLED.print("Left output: ");
@@ -41,7 +39,6 @@ void DisplayInfo() {
     OLED.println(MotorR.velocity);
     OLED.print("Right output: ");
     OLED.println(MotorR.output);
-    //*/
     //*/
     for ( int i=0; i<7; i++ ) {
         if ( IRGroup[i].GetIRStatus() ) {
@@ -69,6 +66,7 @@ void GetEncoderR() { MotorR.GetEncoder(); }
 void DeviceInit() {
     MotorL.Initialize();
     MotorR.Initialize();
+    Ranger.Initialize();
     attachInterrupt(1, GetEncoderL, CHANGE);
     attachInterrupt(0, GetEncoderR, CHANGE);
     Lift.attach(8);
