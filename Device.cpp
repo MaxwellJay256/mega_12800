@@ -12,6 +12,8 @@ IR R2_IR(38);
 IR R3_IR(36);
 IR IRGroup[7] = {L3_IR, L2_IR, L1_IR, Mid_IR, R1_IR, R2_IR, R3_IR};
 
+UltraSonic Ranger(26,28);
+
 Servo Lift;
 Servo Claw;
 
