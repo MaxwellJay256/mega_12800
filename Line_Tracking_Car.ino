@@ -6,8 +6,9 @@
 
 void Control() {
     Drive::Patrol();
-    // MotorR.Spin(-10);
 }
+
+bool ObstacleAvoidFlag = true;
 
 void setup()
 {
@@ -23,6 +24,12 @@ void setup()
 void loop()
 {
     DisplayInfo();
+    /*/ 只执行一次超声波避障
+    if ( ObstacleAvoidFlag ) {
+        Drive::ObstacleAvoidace();
+        ObstacleAvoidFlag = false;
+    }
+    //*/
     //Drive::PatrolEnd();
     delay(period);
 }
