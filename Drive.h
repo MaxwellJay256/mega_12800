@@ -5,7 +5,7 @@
 
 namespace Drive
 {
-    extern double Vc, Wc, vL, vR;
+    extern double Vc, Wc, wL, wR;
     /// @brief 让车体按照一定直线速度和和自转速度移动
     /// @param v 直行线速度（cm/s）
     /// @param w 自转角速度（rad/s）

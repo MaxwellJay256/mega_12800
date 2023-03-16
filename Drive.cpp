@@ -9,12 +9,14 @@ namespace Drive
     const double R2 = 3;//转大弯的转弯半径（厘米）
     const double R3 = 1;//原先是0.5  
     bool isPatrolEnd = false;//巡线是否结束
-    double vL, vR;
+    double wL, wR;
+    const double Wmax = 30;
     void Move(double v, double w) {
-        vL = v - w * L / 2.0;
-        vR = v + w * L / 2.0;
-        MotorL.Spin(vL/r_Wheel);
-        MotorR.Spin(vR/r_Wheel);
+        wL = (v - w * L / 2.0) / r_Wheel;
+        wR = (v + w * L / 2.0) / r_Wheel;
+        Limit(&wL, &Wmax); Limit(&wR, &Wmax);
+        MotorL.Spin(wL);
+        MotorR.Spin(wR);
     }
 
     double Vc = 25;//直线速度（cm/s）
@@ -90,6 +92,27 @@ namespace Drive
             delay(500);
             MsTimer2::set(period, Patrol);
             MsTimer2::start();
+        }
+    }
+
+    /// @brief 获取一个数的正负号
+    /// @param x 
+    /// @return x的正负号
+    int Sign (double x) {
+        int sgn;
+        if ( x > 0 ) {
+            sgn = 1;
+        } else if ( x < 0 ) {
+            sgn = -1;
+        } else {
+            sgn = 0;
+        }
+        return sgn;
+    }
+    /// @brief 将数 x 限制在 [-limit,+limit] 内
+    void Limit(double *x, const double *limit) {
+        if ( abs(*x) > *limit ) {
+            *x = Sign(*x) * *limit;
         }
     }
 }
