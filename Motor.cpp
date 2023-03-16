@@ -44,7 +44,7 @@ void Motor::SetPin(uint8_t _EN,uint8_t _INL1,uint8_t _INL2,uint8_t _ENCODER_A,ui
 void Motor::Initialize() {
     digitalWrite(INL1, LOW);
     digitalWrite(INL2, LOW);
-    analogWrite(EN0, 0);
+    digitalWrite(EN0, LOW);
 }
 
 void Motor::GetEncoder() {
@@ -63,7 +63,7 @@ void Motor::GetEncoder() {
     }
 }
 
-const float Kp = 10, Ti = 20, Td = 5, T = period; //原先为5 140 80 
+const float Kp = 15, Ti = 30, Td = 10, T = period; //原先为5 140 80 , 10 5 5
 int Motor::PIDControl(double target)
 {
     //离散增量式PID
