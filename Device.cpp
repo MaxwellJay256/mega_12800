@@ -1,7 +1,7 @@
 #include "Device.h"
 #include "Drive.h"
 
-Motor MotorL(9,12,13,3,4,true);
+Motor MotorL(9,12,15,3,4,true);
 Motor MotorR(10,11,34,2,14,false);//这里引脚口改了一下
 IR L3_IR(48);
 IR L2_IR(46);
@@ -17,7 +17,7 @@ UltraSonic Ranger(26,28);
 Servo Lift;
 Servo Claw;
 
-Adafruit_SSD1306 OLED(128,64);
+// Adafruit_SSD1306 OLED(128,64);
 void SetOLED(Adafruit_SSD1306 *oled) {
     oled->begin(SSD1306_SWITCHCAPVCC, 0x3C);
     oled->setTextColor(WHITE);
@@ -30,7 +30,7 @@ void SetOLED(Adafruit_SSD1306 *oled) {
 void DisplayInfo() {
     OLED.clearDisplay();
     OLED.setCursor(0, 0);
-    /*/
+    //*/
     OLED.println();
     OLED.print("\nLeft speed:  ");
     OLED.println(MotorL.velocity);
@@ -40,7 +40,8 @@ void DisplayInfo() {
     OLED.println(MotorR.velocity);
     OLED.print("Right output: ");
     OLED.println(MotorR.output);
-    //*/
+    OLED.display();
+    /*/
     for ( int i=0; i<7; i++ ) {
         if ( IRGroup[i].GetIRStatus() ) {
             OLED.print("+");
@@ -54,9 +55,9 @@ void DisplayInfo() {
     OLED.print("Wc: ");
     OLED.println(Drive::Wc);
     OLED.print("wL: ");
-    OLED.println(Drive::vL/3.3);
+    OLED.println(Drive::wL);
     OLED.print("wR: ");
-    OLED.println(Drive::vR/3.3);
+    OLED.println(Drive::wR);
     OLED.display();
     //*/
 }
@@ -65,12 +66,18 @@ void GetEncoderL() { MotorL.GetEncoder(); }
 void GetEncoderR() { MotorR.GetEncoder(); }
 
 void DeviceInit() {
+    // SetOLED(&OLED);
+    // OLED.clearDisplay();
+    // OLED.setCursor(0, 0);
+    // OLED.println("Car initializing...");
+    // OLED.display();
     MotorL.Initialize();
     MotorR.Initialize();
-    Ranger.Initialize();
+    // Ranger.Initialize();
     attachInterrupt(digitalPinToInterrupt(MotorL.ENCODER_A), GetEncoderL, CHANGE);
     attachInterrupt(digitalPinToInterrupt(MotorR.ENCODER_A), GetEncoderR, CHANGE);
     Lift.attach(8);
     Claw.attach(5);
-    SetOLED(&OLED);
+    // OLED.println("Initialize success!");
+    // OLED.display();
 } 
