@@ -5,63 +5,60 @@ namespace Drive
 {
     const double r_Wheel = 3.3;//车轮半径（厘米）
     const double L = 16.4;//左右轮间距（厘米）
-    const double R1 = 4;//转小弯的转弯半径（厘米）
-    const double R2 = 3;//转大弯的转弯半径（厘米）
-    const double R3 = 1;//原先是0.5  
+    const double R1 = 8;//转小弯的转弯半径（厘米）
+    const double R2 = 4.5;//转大弯的转弯半径（厘米）
+    const double R3 = 2;//原先是0.5  
     bool isPatrolEnd = false;//巡线是否结束
     double wL, wR;
     const double Wmax = 30;
     void Move(double v, double w) {
         wL = (v - w * L / 2.0) / r_Wheel;
         wR = (v + w * L / 2.0) / r_Wheel;
-        Limit(&wL, &Wmax); Limit(&wR, &Wmax);
+      //Limit(&wL, &Wmax); Limit(&wR, &Wmax);
         MotorL.Spin(wL);
         MotorR.Spin(wR);
     }
 
-    double Vc = 25;//直线速度（cm/s）
-    double Wc;//转弯速度（rad/s）
+    double Vc = 40;//直线速度（cm/s）
+    double Wc = 0;//转弯速度（rad/s）
     void Patrol() {
-        Wc = 0;
+      //*/
+        // Wc = 0;
         int numOfData = 0;
         if ( L3_IR.GetIRStatus() ) {
-            Wc += Vc / R3;
+            Wc = Vc / R3;
         }
         if ( L2_IR.GetIRStatus() ) {
-            Wc += Vc / R2;
-            numOfData ++;
+            Wc = Vc / R2;
         }
         if ( L1_IR.GetIRStatus() ) {
-            Wc += Vc / R1;
-            numOfData ++;
+            Wc = Vc / R1;
         }
         if ( R3_IR.GetIRStatus() ) {
-            Wc += -(Vc / R3);
+            Wc = -(Vc / R3);
         }
         if ( R2_IR.GetIRStatus() ) {
-            Wc += -(Vc / R2);
-            numOfData ++;
+            Wc = -(Vc / R2);
         }
         if ( R1_IR.GetIRStatus() ) {
-            Wc += -(Vc / R1);
-            numOfData ++;
+            Wc = -(Vc / R1);
         }
         if ( Mid_IR.GetIRStatus()) {
-            Wc += 0;
-            numOfData ++;
+            Wc = 0;
         }
-        if ( numOfData == 0 ){
-            numOfData = 1;
-        }
-        Wc /= numOfData;
+        
+        //Wc /= numOfData;
+        //*/
+        //Wc = Vc / ( L / 2) + 20 ;
         Move(Vc, Wc);
     }
 
     void Turn() {
-        Move(0, -10);
+        Move(0, -30);
     }
     void RunTaskFor(void (*task)(), long runTime) {
         MsTimer2::stop();
+        // delay(1000);
         MsTimer2::set(period, task);
         MsTimer2::start();
         delay(runTime);
@@ -75,7 +72,7 @@ namespace Drive
     void PatrolEnd() {
         if ( L3_IR.GetIRStatus() && R3_IR.GetIRStatus() ) {
             //原地旋转180度
-            RunTaskFor(Turn, 1700);
+            RunTaskFor(Turn, 320);
             MsTimer2::set(period, Park);
             MsTimer2::start();
             RobotArm::ClawDown();//放下物体

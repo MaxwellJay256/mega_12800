@@ -5,12 +5,13 @@
 #include "Drive.h"
 
 void Control() {
-    Drive::Patrol();
-    // MotorR.Spin(-20);
-    // MotorL.Spin(-10);
+     Drive::Patrol();
+    //MotorL.Spin(50);
+    //MotorR.Spin(-50);
+
 }
 
-bool ObstacleAvoidFlag = true;
+bool ObstacleAvoidFlag = false;
 
 void setup()
 {
@@ -22,15 +23,17 @@ void setup()
     RobotArm::ClawUp();
     MsTimer2::set(period, Control);
     MsTimer2::start();
+    Serial.begin(9600);
 }
 
 void loop()
 {
     HeartBeat();
+    Display();
     // DisplayInfo();
-    /*/ 只执行一次超声波避障
+    //*/ 只执行一次超声波避障
     if ( ObstacleAvoidFlag ) {
-        Drive::ObstacleAvoidace();
+        //Drive::ObstacleAvoidace();
         ObstacleAvoidFlag = false;
     } else {
         Drive::PatrolEnd();
@@ -47,4 +50,15 @@ void HeartBeat() {
         digitalWrite(LED_BUILTIN, LOW);
     }
     heartBeatFlag = !heartBeatFlag;
+}
+
+void Display() {
+  for ( int i=0; i<7; i++ ) {
+        if ( IRGroup[i].GetIRStatus() ) {
+            Serial.print("+");
+        } else {
+            Serial.print("-");
+        }
+    }
+  Serial.println();
 }

@@ -76,8 +76,8 @@ void DeviceInit() {
     // Ranger.Initialize();
     attachInterrupt(digitalPinToInterrupt(MotorL.ENCODER_A), GetEncoderL, CHANGE);
     attachInterrupt(digitalPinToInterrupt(MotorR.ENCODER_A), GetEncoderR, CHANGE);
-    Lift.attach(8);
-    Claw.attach(5);
+     Lift.attach(8);
+     Claw.attach(5);
     // OLED.println("Initialize success!");
     // OLED.display();
 } 

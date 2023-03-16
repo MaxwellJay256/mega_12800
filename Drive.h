@@ -23,6 +23,8 @@ namespace Drive
 
     /// @brief 超声波避障
     void ObstacleAvoidace();
+
+    void Limit(double *x, const double *limit);
 }
 
 #endif
