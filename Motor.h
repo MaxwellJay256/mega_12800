@@ -14,22 +14,18 @@ class Motor
         /// @brief 使用PID计算电机需要的模拟值
         /// @return 电机需要的模拟值
         int PIDControl(double target);
-
+        float Kp, Ti, Td;
     public:
         uint8_t ENCODER_A;
         float velocity;//速度
         int output;//输出模拟值
         //float targetVelocity;//目标速度
-        Motor(uint8_t _EN,uint8_t _INL1,uint8_t _INL2,uint8_t _ENCODER_A,uint8_t _ENCODER_B,bool _isReverse);
         
-        /// @brief 修改电机的针脚参数（虽然可能没什么用）
-        /// @param _EN PWM输出端口
-        /// @param _INL1 正反转控制引脚
-        /// @param _INL2 正反转控制引脚
-        /// @param _ENCODER_A 编码器A端口（中断）
-        /// @param _ENCODER_B 编码器B端口
-        void SetPin(uint8_t _EN,uint8_t _INL1,uint8_t _INL2,uint8_t _ENCODER_A,uint8_t _ENCODER_B);
+        Motor(uint8_t _EN,uint8_t _INL1,uint8_t _INL2,uint8_t _ENCODER_A,uint8_t _ENCODER_B,bool _isReverse);
+        /// @brief 初始化电机，不让其转动
         void Initialize();
+        /// @brief 修改电机的PID参数
+        void SetPID(float _Kp, float _Ti, float _Td);
         /// @brief 获取电机的编码器值
         void GetEncoder();
         /// @brief 对电机进行PWM控制
