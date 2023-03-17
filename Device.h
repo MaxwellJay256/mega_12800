@@ -24,10 +24,12 @@ extern Servo Lift;
 extern Servo Claw;
 
 extern Adafruit_SSD1306 OLED;
+/// @brief 初始化OLED屏幕
 void SetOLED(Adafruit_SSD1306 *oled);
 extern const int TARGET;
-void DisplayInfo();
+void OLEDDisplayInfo();
 
+/// @brief 集中初始化设备
 void DeviceInit();
 
 #endif

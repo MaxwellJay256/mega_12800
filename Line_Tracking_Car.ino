@@ -6,34 +6,31 @@
 
 void Control() {
     Drive::Patrol();
-    //MotorL.Spin(50);
-    //MotorR.Spin(-50);
+    // MotorL.Spin(30);
+    // MotorR.Spin(30);
 }
-
-bool ObstacleAvoidFlag = false;
 
 void setup()
 {
-    //PWM频率调节，设置9、10引脚的PWM输出频率为31372Hz，适合于我们使用的电机
-    TCCR1B = TCCR1B & B11111000 | B00000001;
+    TCCR1B = TCCR1B & B11111000 | B00000001;//PWM频率调节
     pinMode(LED_BUILTIN, OUTPUT);
     DeviceInit();
     RobotArm::ClawDown();
     RobotArm::ClawUp();
     MsTimer2::set(period, Control);
     MsTimer2::start();
-    Serial.begin(9600);
+    Drive::ObstacleAvoidFlag = true;
+    // Serial.begin(9600);
 }
 
 void loop()
 {
     HeartBeat();
-    // DisplayLine();
     // DisplayInfo();
+    // OLEDDisplayInfo();
     //*/ 只执行一次超声波避障
-    if ( ObstacleAvoidFlag ) {
+    if ( Drive::ObstacleAvoidFlag ) {
         Drive::ObstacleAvoidace();
-        ObstacleAvoidFlag = false;
     } else {
         Drive::PatrolEnd();
     }
@@ -43,7 +40,7 @@ void loop()
 
 bool heartBeatFlag = false;
 /// @brief 让开发板的自带LED灯闪烁，证明开发板还活着。
-/// @note 如果程序出现问题或者硬件出现故障，loop不能正常执行，则灯会停止闪烁。
+/// @note 如子果程序未能退出或者硬件出现故障，loop不能正常执行，则灯会停止闪烁。
 void HeartBeat() {
     if ( heartBeatFlag ) {
         digitalWrite(LED_BUILTIN, HIGH);
@@ -53,13 +50,17 @@ void HeartBeat() {
     heartBeatFlag = !heartBeatFlag;
 }
 
-void DisplayLine() {
-  for ( int i=0; i<7; i++ ) {
+/// @brief 串口打印一些信息
+void DisplayInfo() {
+    //*/ 显示光电传感器的结果
+    for ( int i=0; i<7; i++ ) {
         if ( IRGroup[i].GetIRStatus() ) {
             Serial.print("+");
         } else {
             Serial.print("-");
         }
     }
-  Serial.println();
+    Serial.println();
+    //*/ 显示超声波获取的距离
+    // Serial.println(Ranger.GetDistance());
 }
