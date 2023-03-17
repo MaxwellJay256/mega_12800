@@ -5,10 +5,9 @@
 #include "Drive.h"
 
 void Control() {
-     Drive::Patrol();
+    Drive::Patrol();
     //MotorL.Spin(50);
     //MotorR.Spin(-50);
-
 }
 
 bool ObstacleAvoidFlag = false;
@@ -29,11 +28,11 @@ void setup()
 void loop()
 {
     HeartBeat();
-    Display();
+    // DisplayLine();
     // DisplayInfo();
     //*/ 只执行一次超声波避障
     if ( ObstacleAvoidFlag ) {
-        //Drive::ObstacleAvoidace();
+        Drive::ObstacleAvoidace();
         ObstacleAvoidFlag = false;
     } else {
         Drive::PatrolEnd();
@@ -43,6 +42,8 @@ void loop()
 }
 
 bool heartBeatFlag = false;
+/// @brief 让开发板的自带LED灯闪烁，证明开发板还活着。
+/// @note 如果程序出现问题或者硬件出现故障，loop不能正常执行，则灯会停止闪烁。
 void HeartBeat() {
     if ( heartBeatFlag ) {
         digitalWrite(LED_BUILTIN, HIGH);
@@ -52,7 +53,7 @@ void HeartBeat() {
     heartBeatFlag = !heartBeatFlag;
 }
 
-void Display() {
+void DisplayLine() {
   for ( int i=0; i<7; i++ ) {
         if ( IRGroup[i].GetIRStatus() ) {
             Serial.print("+");

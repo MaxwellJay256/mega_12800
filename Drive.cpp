@@ -14,7 +14,7 @@ namespace Drive
     void Move(double v, double w) {
         wL = (v - w * L / 2.0) / r_Wheel;
         wR = (v + w * L / 2.0) / r_Wheel;
-      //Limit(&wL, &Wmax); Limit(&wR, &Wmax);
+        //Limit(&wL, &Wmax); Limit(&wR, &Wmax);
         MotorL.Spin(wL);
         MotorR.Spin(wR);
     }
@@ -22,7 +22,7 @@ namespace Drive
     double Vc = 40;//直线速度（cm/s）
     double Wc = 0;//转弯速度（rad/s）
     void Patrol() {
-      //*/
+        //*/
         // Wc = 0;
         int numOfData = 0;
         if ( L3_IR.GetIRStatus() ) {
@@ -46,33 +46,47 @@ namespace Drive
         if ( Mid_IR.GetIRStatus()) {
             Wc = 0;
         }
-        
         //Wc /= numOfData;
         //*/
         //Wc = Vc / ( L / 2) + 20 ;
         Move(Vc, Wc);
     }
 
-    void Turn() {
+/*******************一些简单动作函数*******************/
+    /// @brief 右转
+    void RightTurnCallback() {
         Move(0, -30);
     }
+    /// @brief 左转
+    void LeftTurnCallback() {
+        Move(0, 30);
+    }
+    void ForwardCallback() {
+        Move(35, 0);
+    }
+    void BackwardCallback() {
+        Move(-50, 0);
+    }
+    /// @brief 泊车模式，车会自己定住
+    void Park() {
+        Move(0, 0);
+    }
+
     void RunTaskFor(void (*task)(), long runTime) {
         MsTimer2::stop();
-        // delay(1000);
         MsTimer2::set(period, task);
         MsTimer2::start();
         delay(runTime);
         MsTimer2::stop();
     }
 
-    /// @brief 泊车模式，车会自己定住
-    void Park() {
-        Move(0, 0);
-    }
     void PatrolEnd() {
         if ( L3_IR.GetIRStatus() && R3_IR.GetIRStatus() ) {
+            RunTaskFor(Park, 500);
             //原地旋转180度
-            RunTaskFor(Turn, 320);
+            RunTaskFor(ForwardCallback, 350);
+            // RunTaskFor(Park, 500);
+            RunTaskFor(RightTurnCallback, 300);
             MsTimer2::set(period, Park);
             MsTimer2::start();
             RobotArm::ClawDown();//放下物体
@@ -83,12 +97,22 @@ namespace Drive
     }
 
     void ObstacleAvoidace() {
-        if ( Ranger.GetDistance() < 15 ) {
+        if ( Ranger.GetDistance() < 25 ) {
             MsTimer2::stop();
-            RunTaskFor(Turn, 600);
-            delay(500);
-            MsTimer2::set(period, Patrol);
+            RunTaskFor(LeftTurnCallback, 100);
+            // RunTaskFor(Park, 500);
+            // RunTaskFor(ForwardCallback, 200);
+            // RunTaskFor(Park, 500);
+            // RunTaskFor(RightTurnCallback, 100);
+            // RunTaskFor(Park, 500);
+            // RunTaskFor(ForwardCallback, 200);
+            // MsTimer2::set(period, Patrol);
+            // MsTimer2::start();
+            MsTimer2::set(period, Park);
             MsTimer2::start();
+            while (1) { //进入死循环，程序中止
+                delay(10);
+            }
         }
     }
 
