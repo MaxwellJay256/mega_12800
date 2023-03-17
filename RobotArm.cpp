@@ -12,6 +12,7 @@ namespace RobotArm
         Claw.write(CLAW_HOLD_POSITION);
         delay(700);
         Lift.write(LIFT_UP_POSITION);
+        delay(1000);
     }
 
     void ClawDown() {
