@@ -2,6 +2,7 @@
 - Designed for HITSZ 2022 自动化认识与实践课程项目。
 - 所有者：[Maxwell Jay](https://github.com/MaxwellJay256 "github.com/MaxwellJay256")，[CYCLECHENHUOHUA](https://github.com/CYCLECHENHUOHUA "github.com/CYCLECHENHUOHUA")
 - Q: 为什么给项目起名叫“mega 12800”？
+
   A: 开发小车的途中，有5块Arduino mega 2560阵亡在了我们手中。因此小车做出来后，我们决定用这个名字纪念**我们花掉的**那一两百块钱。R.I.P.
 #### 文件说明
 1. [main.ino](main.ino)：小车的主程序
