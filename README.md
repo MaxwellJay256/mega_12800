@@ -34,7 +34,7 @@
 ### 如何使用这个仓库
 - 点击本页面右上角的"Star"按钮，可以将本仓库加入你的GitHub收藏夹，下次就能很方便找到我啦！
 
-这个仓库主要有两大内容：Code和Wiki。
+这个仓库有两大内容：[Code](https://github.com/MaxwellJay256/mega_12800)（就是本页面）和[Wiki](https://github.com/MaxwellJay256/mega_12800/wiki)。
 
 #### 本工程的特点
 1. 采用多文件，将功能分散。
