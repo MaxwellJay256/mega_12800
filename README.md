@@ -5,7 +5,7 @@
 
   A: 开发小车的途中，有5块Arduino mega 2560阵亡在了我们手中。因此小车做出来后，我们决定用这个名字纪念**我们花掉的**那一两百块钱。R.I.P.
 #### 文件说明
-1. [main.ino](main.ino)：小车的主程序
+1. [mega_12800.ino](mega_12800.ino)：小车的主程序
 2. [Motor.h](Motor.h)和[Motor.cpp](Motor.cpp)：电机对象的声明和实现，内置PID控制器。
 3. [Sensor.h](Sensor.h)和[Sensor.cpp](Sensor.cpp)：光电传感器、超声波传感器对象的声明和实现。
 4. [RobotArm.h](RobotArm.h)和[RobotArm.cpp](RobotArm.cpp)：对机械臂的一些操纵函数。
