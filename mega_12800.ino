@@ -28,7 +28,7 @@ void loop()
     HeartBeat();
     // DisplayInfo();
     // OLEDDisplayInfo();
-    //*/ 只执行一次超声波避障
+    //*/ 只执行一次超声波避障，避障后才激活终点检测
     if ( Drive::ObstacleAvoidFlag ) {
         Drive::ObstacleAvoidace();
     } else {
@@ -40,7 +40,7 @@ void loop()
 
 bool heartBeatFlag = false;
 /// @brief 让开发板的自带LED灯闪烁，证明开发板还活着。
-/// @note 如子果程序未能退出或者硬件出现故障，loop不能正常执行，则灯会停止闪烁。
+/// @note 如子果程序未能退出或者硬件出现故障，loop不能正常循环，则灯会停止闪烁。
 void HeartBeat() {
     if ( heartBeatFlag ) {
         digitalWrite(LED_BUILTIN, HIGH);

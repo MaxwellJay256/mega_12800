@@ -3,13 +3,13 @@
 
 namespace Drive
 {
-    const double r_Wheel = 3.3;//车轮半径（厘米）
-    const double L = 16.4;//左右轮间距（厘米）
-    const double R1 = 8;//转小弯的转弯半径（厘米）
-    const double R2 = 4.5;//转中弯的转弯半径（厘米）
-    const double R3 = 1.9;//转大弯的转弯半径（厘米）  
+    const double r_Wheel = 3.3;//车轮半径 (cm)
+    const double L = 16.4;//左右轮间距 (cm)
+    const double R1 = 8.1;//转小弯的转弯半径 (cm)
+    const double R2 = 4.5;//转中弯的转弯半径 (cm)
+    const double R3 = 1.9;//转大弯的转弯半径 (cm)  
     double wL, wR;
-    const double Wmax = 30;
+    // const double Wmax = 30;
     bool ObstacleAvoidFlag = true;
     void Move(double v, double w) {
         wL = (v - w * L / 2.0) / r_Wheel;
@@ -19,8 +19,8 @@ namespace Drive
         MotorR.Spin(wR);
     }
 
-    double Vc = 40;//直线速度（cm/s）
-    double Wc = 0;//转弯速度（rad/s）
+    double Vc = 40;//直线速度 (cm/s)
+    double Wc = 0;//转弯速度 (rad/s)
     void Patrol() {
         //*/
         if ( Mid_IR.GetIRStatus()) {
@@ -79,13 +79,13 @@ namespace Drive
 
     void PatrolEnd() {
         if ( L3_IR.GetIRStatus() && R3_IR.GetIRStatus() ) {
-            RunTaskFor(Park, 500);
+            RunTaskFor(Park, 300);
             //原地旋转180度
             RunTaskFor(ForwardCallback, 350);
-            RunTaskFor(RightTurnCallback, 300);
+            RunTaskFor(RightTurnCallback, 340);
             MsTimer2::set(period, Park);
             MsTimer2::start();
-            RobotArm::ClawDown();//放下物体
+            RobotArm::ClawDown();
             while (1) { //进入死循环，程序中止
                 delay(10);
             }
