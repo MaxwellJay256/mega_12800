@@ -78,7 +78,7 @@ namespace Drive
     }
 
     void PatrolEnd() {
-        if ( L3_IR.GetIRStatus() && R3_IR.GetIRStatus() ) {
+        if ( L3_IR.GetIRStatus() && R3_IR.GetIRStatus() && L2_IR.GetIRStatus() && R2_IR.GetIRStatus() && L1_IR.GetIRStatus() && R1_IR.GetIRStatus() && Mid_IR.GetIRStatus() ) {
             RunTaskFor(Park, 300);
             //原地旋转180度
             RunTaskFor(ForwardCallback, 350);
