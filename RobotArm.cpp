@@ -1,6 +1,6 @@
 #include "RobotArm.h"
 #define LIFT_DOWN_POSITION 74
-#define LIFT_UP_POSITION 135
+#define LIFT_UP_POSITION 100
 #define CLAW_FREE_POSITION 90
 #define CLAW_HOLD_POSITION 125
 
