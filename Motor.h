@@ -3,6 +3,7 @@
 #include <Arduino.h>
 
 extern const int period;
+/// @brief 底盘电机
 class Motor
 {
     private:
