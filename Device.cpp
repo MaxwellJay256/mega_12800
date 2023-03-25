@@ -1,8 +1,19 @@
 #include "Device.h"
 #include "Drive.h"
 
-Motor MotorL(9,12,15,3,4,true);
-Motor MotorR(10,11,34,2,14,false);
+#define MOTOR_L_PWM 9
+#define MOTOR_L_INL1 12
+#define MOTOR_L_INL2 15
+#define MOTOR_L_ENCODER_A 3
+#define MOTOR_L_ENCODER_B 4
+#define MOTOR_R_PWM 10
+#define MOTOR_R_INL1 11
+#define MOTOR_R_INL2 34
+#define MOTOR_R_ENCODER_A 2
+#define MOTOR_R_ENCODER_B 14
+Motor MotorL(MOTOR_L_PWM, MOTOR_L_INL1, MOTOR_L_INL2, MOTOR_L_ENCODER_A, MOTOR_L_ENCODER_B, true);
+Motor MotorR(MOTOR_R_PWM, MOTOR_R_INL1, MOTOR_R_INL2, MOTOR_R_ENCODER_A, MOTOR_R_ENCODER_B, false);
+
 IR L3_IR(48);
 IR L2_IR(46);
 IR L1_IR(44);
@@ -12,8 +23,12 @@ IR R2_IR(38);
 IR R3_IR(36);
 IR IRGroup[7] = {L3_IR, L2_IR, L1_IR, Mid_IR, R1_IR, R2_IR, R3_IR};
 
-UltraSonic Ranger(25, 24);
+#define RANGER_TRIG_PIN 25
+#define RANGER_ECHO_PIN 24
+UltraSonic Ranger(RANGER_TRIG_PIN, RANGER_ECHO_PIN);
 
+#define SERVO_LIFT_PIN 8
+#define SERVO_CLAW_PIN 5
 Servo Lift;//机械臂
 Servo Claw;//夹爪
 
@@ -65,21 +80,22 @@ void OLEDDisplayInfo() {
 void GetEncoderL() { MotorL.GetEncoder(); }
 void GetEncoderR() { MotorR.GetEncoder(); }
 
+float Kp = 15, Ti = 30, Td = 10;
 void DeviceInit() {
     // SetOLED(&OLED);
     // OLED.clearDisplay();
     // OLED.setCursor(0, 0);
     // OLED.println("Car initializing...");
     // OLED.display();
-    MotorL.SetPID(15, 30, 10);
-    MotorR.SetPID(15, 30, 10);
+    MotorL.SetPID(Kp, Ti, Td);
+    MotorR.SetPID(Kp, Ti, Td);
     MotorL.Initialize();
     MotorR.Initialize();
     Ranger.Initialize();
     attachInterrupt(digitalPinToInterrupt(MotorL.ENCODER_A), GetEncoderL, CHANGE);
     attachInterrupt(digitalPinToInterrupt(MotorR.ENCODER_A), GetEncoderR, CHANGE);
-    Lift.attach(8);
-    Claw.attach(5);
+    Lift.attach(SERVO_LIFT_PIN);
+    Claw.attach(SERVO_CLAW_PIN);
     // OLED.println("Initialize success!");
     // OLED.display();
 } 
