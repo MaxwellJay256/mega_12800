@@ -2,6 +2,7 @@
 #define SENSOR_H
 #include <Arduino.h>
 
+/// @brief 光电传感器
 class IR {
     private:
         uint8_t pin;//数据端口
@@ -13,6 +14,7 @@ class IR {
         bool GetIRStatus();
 };
 
+/// @brief 超声波传感器
 class UltraSonic {
     private:
         uint8_t Trig_Pin, Echo_Pin;
@@ -22,7 +24,7 @@ class UltraSonic {
         /// @param _trigPin 
         /// @param _echoPin 
         UltraSonic(uint8_t _trigPin, uint8_t _echoPin);
-        /// @brief 初始化传感器
+        /// @brief 初始化超声波传感器
         void Initialize();
         /// @brief 超声波测距
         /// @return 距离(cm)
