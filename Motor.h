@@ -34,4 +34,4 @@ class Motor
         ~Motor();
 };
 
-#endif
+#endif // MOTOR_H

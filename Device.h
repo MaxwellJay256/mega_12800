@@ -32,4 +32,4 @@ void OLEDDisplayInfo();
 /// @brief 集中初始化设备
 void DeviceInit();
 
-#endif
+#endif // DEVICE_H

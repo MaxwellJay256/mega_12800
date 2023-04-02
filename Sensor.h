@@ -31,4 +31,4 @@ class UltraSonic {
         float GetDistance();
 };
 
-#endif
+#endif // SENSOR_H

@@ -9,5 +9,4 @@ namespace RobotArm {
     void ClawDown();
 }
 
-
 #endif // ROBOTARM_H
