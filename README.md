@@ -1,4 +1,6 @@
 # mega 12800
+[![License][license]](COPYING)
+
 - Designed for HITSZ 2022 自动化认识与实践课程项目。
 - 所有者：[Maxwell Jay](https://github.com/MaxwellJay256 "github.com/MaxwellJay256")，[CYCLECHENHUOHUA](https://github.com/CYCLECHENHUOHUA "github.com/CYCLECHENHUOHUA")
 - Q: 为什么给项目起名叫“mega 12800”？
