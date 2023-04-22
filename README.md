@@ -1,6 +1,6 @@
 # mega 12800
 
-<!-- markdownlint-enable>
+<!-- markdownlint-enable -->
 
 [![License][license]](COPYING)
 <!-- markdownlint-disable first-header-h1 -->
