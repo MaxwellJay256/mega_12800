@@ -10,97 +10,101 @@ namespace Drive
     const double R3 = 1.9;//转大弯的转弯半径 (cm)  
     double wL, wR;
     // const double Wmax = 30;
-    bool ObstacleAvoidFlag = true;
-    void Move(double v, double w) {
+    bool obstacle_avoid_flag = true;
+    void move(double v, double w) {
         wL = (v - w * L / 2.0) / r_Wheel;
         wR = (v + w * L / 2.0) / r_Wheel;
         //Limit(&wL, &Wmax); Limit(&wR, &Wmax);
-        MotorL.Spin(wL);
-        MotorR.Spin(wR);
+        motor_L.spin(wL);
+        motor_R.spin(wR);
     }
 
-    double Vc = 40;//直线速度 (cm/s)
-    double Wc = 0;//转弯速度 (rad/s)
-    void Patrol() {
+    double Vc = 40; //直线速度 (cm/s)
+    double Wc = 0; //转弯速度 (rad/s)
+    void patrol() {
         //*/
-        if ( Mid_IR.GetIRStatus()) {
+        if (Mid_IR.get_IR_status()) {
             Wc = 0;
         }
-        if ( L1_IR.GetIRStatus() ) {
+        if (L1_IR.get_IR_status()) {
             Wc = Vc / R1;
         }
-        if ( R1_IR.GetIRStatus() ) {
+        if (R1_IR.get_IR_status()) {
             Wc = -(Vc / R1);
         }
-        if ( R2_IR.GetIRStatus() ) {
+        if (R2_IR.get_IR_status()) {
             Wc = -(Vc / R2);
         }
-        if ( L2_IR.GetIRStatus() ) {
+        if (L2_IR.get_IR_status()) {
             Wc = Vc / R2;
         }
-        if ( L3_IR.GetIRStatus() ) {
+        if (L3_IR.get_IR_status()) {
             Wc = Vc / R3;
         }
-        if ( R3_IR.GetIRStatus() ) {
+        if (R3_IR.get_IR_status()) {
             Wc = -(Vc / R3);
         }
         //*/
-        Move(Vc, Wc);
+        move(Vc, Wc);
     }
 
 /*******************一些简单动作函数*******************/
     /// @brief 右转
     void RightTurnCallback() {
-        Move(0, -30);
+        move(0, -30);
     }
     /// @brief 左转
     void LeftTurnCallback() {
-        Move(0, 30);
+        move(0, 30);
     }
     void ForwardCallback() {
-        Move(35, 0);
+        move(35, 0);
     }
     void BackwardCallback() {
-        Move(-50, 0);
+        move(-50, 0);
     }
     /// @brief 泊车模式，车会自己定住
     void Park() {
-        Move(0, 0);
+        move(0, 0);
     }
 
 /**********************执行任务**********************/
-    void RunTaskFor(void (*task)(), long runTime) {
+    void run_task_for(void (*task)(), long runTime) {
         MsTimer2::stop();
-        MsTimer2::set(period, task);
+        MsTimer2::set(motor_L.period, task);
         MsTimer2::start();
         delay(runTime);
         MsTimer2::stop();
     }
 
-    void PatrolEnd() {
-        if ( L3_IR.GetIRStatus() && R3_IR.GetIRStatus() && L2_IR.GetIRStatus() && R2_IR.GetIRStatus() && L1_IR.GetIRStatus() && R1_IR.GetIRStatus() && Mid_IR.GetIRStatus() ) {
-            RunTaskFor(Park, 300);
+    void patrol_end() {
+        if ( L3_IR.get_IR_status() && R3_IR.get_IR_status() 
+            && L2_IR.get_IR_status() && R2_IR.get_IR_status() 
+            && L1_IR.get_IR_status() && R1_IR.get_IR_status() 
+            && Mid_IR.get_IR_status() )
+        {
+            run_task_for(Park, 300);
             //原地旋转180度
-            RunTaskFor(ForwardCallback, 350);
-            RunTaskFor(RightTurnCallback, 340);
-            MsTimer2::set(period, Park);
+            run_task_for(ForwardCallback, 350);
+            run_task_for(RightTurnCallback, 340);
+            MsTimer2::set(motor_L.period, Park);
             MsTimer2::start();
-            RobotArm::ClawDown();
+            RobotArm::claw_down();
             while (1) { //进入死循环，程序中止
                 delay(10);
             }
         }
     }
 
-    void ObstacleAvoidace() {
-        if ( Ranger.GetDistance() < 26 ) {
-            RunTaskFor(LeftTurnCallback, 170);
-            RunTaskFor(ForwardCallback, 700);
-            RunTaskFor(RightTurnCallback, 100);
-            RunTaskFor(ForwardCallback, 1000);
-            RunTaskFor(RightTurnCallback, 100);
-            ObstacleAvoidFlag = false;
-            MsTimer2::set(period, Patrol);
+    void obstacle_avoidace() {
+        if ( ranger.get_distance() < 26 ) {
+            run_task_for(LeftTurnCallback, 170);
+            run_task_for(ForwardCallback, 700);
+            run_task_for(RightTurnCallback, 100);
+            run_task_for(ForwardCallback, 1000);
+            run_task_for(RightTurnCallback, 100);
+            obstacle_avoid_flag = false;
+            MsTimer2::set(motor_L.period, patrol);
             MsTimer2::start();
         }
     }
@@ -118,11 +122,5 @@ namespace Drive
             sgn = 0;
         }
         return sgn;
-    }
-    /// @brief 将数 x 限制在 [-limit,+limit] 内
-    void Limit(double *x, const double *limit) {
-        if ( abs(*x) > *limit ) {
-            *x = Sign(*x) * *limit;
-        }
     }
 }

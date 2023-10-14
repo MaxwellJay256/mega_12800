@@ -6,18 +6,20 @@
 
 namespace RobotArm
 {
-    void ClawUp() {
-        Claw.write(CLAW_FREE_POSITION);
+    void claw_up()
+    {
+        claw.write(CLAW_FREE_POSITION);
         delay(200);
-        Claw.write(CLAW_HOLD_POSITION);
+        claw.write(CLAW_HOLD_POSITION);
         delay(700);
-        Lift.write(LIFT_UP_POSITION);
+        lift.write(LIFT_UP_POSITION);
         delay(1000);
     }
 
-    void ClawDown() {
-        Lift.write(LIFT_DOWN_POSITION);
+    void claw_down()
+    {
+        lift.write(LIFT_DOWN_POSITION);
         delay(900);
-        Claw.write(CLAW_FREE_POSITION);
+        claw.write(CLAW_FREE_POSITION);
     }
 }

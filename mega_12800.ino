@@ -5,21 +5,21 @@
 #include "Drive.h"
 
 void Control() {
-    Drive::Patrol();
-    // MotorL.Spin(30);
-    // MotorR.Spin(30);
+    Drive::patrol();
+    // motor_L.Spin(30);
+    // motor_R.Spin(30);
 }
 
 void setup()
 {
     TCCR1B = TCCR1B & B11111000 | B00000001;//PWM频率调节
     pinMode(LED_BUILTIN, OUTPUT);
-    DeviceInit();
-    RobotArm::ClawDown();
-    RobotArm::ClawUp();
-    MsTimer2::set(period, Control);
+    device_init();
+    RobotArm::claw_down();
+    RobotArm::claw_up();
+    MsTimer2::set(motor_L.period, Control);
     MsTimer2::start();
-    Drive::ObstacleAvoidFlag = true;
+    Drive::obstacle_avoid_flag = true;
     // Serial.begin(9600);
 }
 
@@ -27,15 +27,15 @@ void loop()
 {
     HeartBeat();
     // DisplayInfo();
-    // OLEDDisplayInfo();
+    // OLED_display_info();
     //*/ 只执行一次超声波避障，避障后才激活终点检测
-    if ( Drive::ObstacleAvoidFlag ) {
-        Drive::ObstacleAvoidace();
+    if ( Drive::obstacle_avoid_flag ) {
+        Drive::obstacle_avoidace();
     } else {
-        Drive::PatrolEnd();
+        Drive::patrol_end();
     }
     //*/
-    delay(period);
+    delay(motor_L.period);
 }
 
 bool heartBeatFlag = false;
@@ -54,7 +54,7 @@ void HeartBeat() {
 void DisplayInfo() {
     //*/ 显示光电传感器的结果
     for ( int i=0; i<7; i++ ) {
-        if ( IRGroup[i].GetIRStatus() ) {
+        if ( IRGroup[i].get_IR_status() ) {
             Serial.print("+");
         } else {
             Serial.print("-");
@@ -62,5 +62,5 @@ void DisplayInfo() {
     }
     Serial.println();
     //*/ 显示超声波获取的距离
-    // Serial.println(Ranger.GetDistance());
+    // Serial.println(Ranger.get_distance());
 }

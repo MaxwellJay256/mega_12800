@@ -1,5 +1,5 @@
-#ifndef DEVICE_H
-#define DEVICE_H
+#ifndef DEVICE_H_
+#define DEVICE_H_
 #include "Motor.h"
 #include "Sensor.h"
 #include <Arduino.h>
@@ -7,8 +7,8 @@
 #include <Adafruit_SSD1306.h>
 #include <splash.h>
 
-extern Motor MotorL;
-extern Motor MotorR;
+extern Motor motor_L;
+extern Motor motor_R;
 extern IR L3_IR;
 extern IR L2_IR;
 extern IR L1_IR;
@@ -18,18 +18,18 @@ extern IR R2_IR;
 extern IR R3_IR;
 extern IR IRGroup[7];
 
-extern UltraSonic Ranger;
+extern UltraSonic ranger;
 
-extern Servo Lift;
-extern Servo Claw;
+extern Servo lift;
+extern Servo claw;
 
 extern Adafruit_SSD1306 OLED;
 /// @brief 初始化OLED屏幕
-void SetOLED(Adafruit_SSD1306 *oled);
+void set_OLED(Adafruit_SSD1306 *oled);
 extern const int TARGET;
-void OLEDDisplayInfo();
+void OLED_display_info();
 
 /// @brief 集中初始化设备
-void DeviceInit();
+void device_init();
 
-#endif // DEVICE_H
+#endif // DEVICE_H_

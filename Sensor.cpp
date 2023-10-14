@@ -1,31 +1,35 @@
 #include "Sensor.h"
 
-IR::IR(uint8_t _pin) {
-    pin = _pin;
-    pinMode(pin, INPUT);
+IR::IR(uint8_t pin) : pin_(pin)
+{
+    pin_ = pin;
+    pinMode(pin_, INPUT);
 }
 
-bool IR::GetIRStatus() {
-    return (digitalRead(pin)==HIGH);
+bool IR::get_IR_status()
+{
+    return (digitalRead(pin_) == HIGH);
 }
 
-UltraSonic::UltraSonic(uint8_t _trigPin, uint8_t _echoPin) {
-    Trig_Pin = _trigPin;
-    Echo_Pin = _echoPin;
-    pinMode(Trig_Pin, OUTPUT);
-    pinMode(Echo_Pin, INPUT);
+UltraSonic::UltraSonic(uint8_t trig_pin, uint8_t echo_pin) 
+    : trig_pin_(trig_pin), echo_pin_(echo_pin)
+{
+    pinMode(trig_pin_, OUTPUT);
+    pinMode(echo_pin_, INPUT);
 }
 
-void UltraSonic::Initialize() {
-    digitalWrite(Trig_Pin, LOW);
+void UltraSonic::initialize()
+{
+    digitalWrite(trig_pin_, LOW);
 }
 
-float UltraSonic::GetDistance() {
-    digitalWrite(Trig_Pin, LOW);
+float UltraSonic::get_distance()
+{
+    digitalWrite(trig_pin_, LOW);
     delayMicroseconds(2);
-    digitalWrite(Trig_Pin, HIGH);
+    digitalWrite(trig_pin_, HIGH);
     delayMicroseconds(10);
-    digitalWrite(Trig_Pin, LOW);
-    distance = pulseIn(Echo_Pin, HIGH) / 58.0;
-    return distance;
+    digitalWrite(trig_pin_, LOW);
+    distance_ = pulseIn(echo_pin_, HIGH) / 58.0;
+    return distance_;
 }
