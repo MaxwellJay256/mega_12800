@@ -1,23 +1,27 @@
-# mega 12800
+# mega_12800
 ![License](https://img.shields.io/badge/License-MIT-blue)
 
 - Designed for HITSZ 2022 自动化认识与实践课程项目。
-- 所有者：[Maxwell Jay](https://github.com/MaxwellJay256 "github.com/MaxwellJay256")，[CYCLECHENHUOHUA](https://github.com/CYCLECHENHUOHUA "github.com/CYCLECHENHUOHUA")
-- Q: 为什么给项目起名叫“mega 12800”？
+- Collaborators: [Maxwell Jay](https://github.com/MaxwellJay256 "github.com/MaxwellJay256")，[CY](https://github.com/CYCLECHENHUOHUA "github.com/CYCLECHENHUOHUA")
+- Q: 为什么给项目起名叫“mega_12800”？
 
   A: 开发小车的途中，有 5 块 Arduino mega 2560 阵亡在了我们手中。因此小车做出来后，我们决定用这个名字纪念**我们花掉的**那一两百块钱。R.I.P.
-### 文件说明
+  $$
+  5 \times 2560 = 12800
+  $$
+
+## Files
 1. [mega_12800.ino](mega_12800.ino)：小车的主程序
-2. [Motor.h](Motor.h)和[Motor.cpp](Motor.cpp)：电机对象的声明和实现，内置 PID 控制器。
-3. [Sensor.h](Sensor.h)和[Sensor.cpp](Sensor.cpp)：光电传感器、超声波传感器对象的声明和实现。
-4. [RobotArm.h](RobotArm.h)和[RobotArm.cpp](RobotArm.cpp)：对机械臂的一些操纵函数。
-5. [Device.h](Device.h)和[Device.cpp](Device.cpp)：此处集中定义了电机、光电传感器、超声波传感器和机械臂对象，以及对它们的初始化函数。
-6. [Drive.h](Drive.h)和[Drive.cpp](Drive.cpp)：调用电机和传感器对象，实现对底盘的操纵，包括巡线、避障以及到达终点时执行的动作。
+2. [Motor.h](Motor.h) 和 [Motor.cpp](Motor.cpp)：电机对象的声明和实现，内置 PID 控制器。
+3. [Sensor.h](Sensor.h) 和 [Sensor.cpp](Sensor.cpp)：光电传感器、超声波传感器对象的声明和实现。
+4. [RobotArm.h](RobotArm.h) 和 [RobotArm.cpp](RobotArm.cpp)：对机械臂的一些操纵函数。
+5. [Device.h](Device.h) 和 [Device.cpp](Device.cpp)：此处集中定义了电机、光电传感器、超声波传感器和机械臂对象，以及对它们的初始化函数。
+6. [Drive.h](Drive.h) 和 [Drive.cpp](Drive.cpp)：调用电机和传感器对象，实现对底盘的操纵，包括巡线、避障以及到达终点时执行的动作。
 
 ## 如何使用这个仓库
 - 点击本页面右上角的"Star"按钮，可以将本仓库加入你的 GitHub 收藏夹，下次就能很方便找到我啦！
 
-这个仓库有两大内容：[Code](https://github.com/MaxwellJay256/mega_12800)（就是本页面）和[Wiki](https://github.com/MaxwellJay256/mega_12800/wiki)。
+这个仓库有两大内容：[Code](https://github.com/MaxwellJay256/mega_12800)（就是本页面）和 [Wiki](https://github.com/MaxwellJay256/mega_12800/wiki)。
 
 1. Code：本项目保存的小车代码。你可以在线阅览它们，也可以将仓库克隆到本地进行学习。我们建议您使用 Visual Studio Code 打开这个文件夹，因为我们使用了 *Doxygen 注释*为变量和函数进行备注和说明。
 2. Wiki：是我自制的教程，包含硬件、软件、调试三大部分内容。在这里，我会详细讲解如何用限制内的软硬件制作出好用又美观的小车。
@@ -34,7 +38,7 @@
 
 开学后，老师要求 4 个星期内完成小车并考核。大家也没闲着，赶紧完善硬件结构，一点点开发程序。然而，考核的要求实在是难以让人接受——
 
-就在考核还剩大约两周的时间内，教师一会儿要求用自制3D打印机械臂，一会儿在考核中增加超声波避障，一会儿说除了基础考核外，还有竞速赛，并且以上都计入了加分或减分项。要知道，这门课在我们这届由考察课变成了考试课，意味着小车的好坏与学分绩直接挂钩。事实上上述要求在之前的课程内容中都有涉及，但是学生们不一定都掌握了。并且到了后期，许多同学的硬件出现不可逆的故障，并且学校不提供更换。对于分数就是命的我们，这种并非由于老师教学造成的成绩差距是无法接受的。
+就在考核还剩大约两周的时间内，教师一会儿要求用自制 3D 打印机械臂，一会儿在考核中增加超声波避障，一会儿说除了基础考核外，还有竞速赛，并且以上都计入了加分或减分项。要知道，这门课在我们这届由考察课变成了考试课，意味着小车的好坏与学分绩直接挂钩。事实上上述要求在之前的课程内容中都有涉及，但是学生们不一定都掌握了。并且到了后期，许多同学的硬件出现不可逆的故障，并且学校不提供更换。对于分数就是命的我们，这种并非由于老师教学造成的成绩差距是无法接受的。
 >我的意思是，一般学生只听老师讲的课很难在考核前开发出满足这些要求的东西，除非给予足够的自学或者准备时间。幸运的是，我当时掌握一些使用C++开发机器人的技术，因此并没有感到非常惊慌。但是我毕竟和同学们站在一起，无丝毫幸灾乐祸。
 
 后来在学生们的努力下，老师降低了考核要求，超声波避障成为了选考项，机械臂只需提交工程图，竞速赛被取消。我们二人在经历了烧坏若干开发板后（事实上有无数同学损坏了自己的元器件，~~并且老师无法提供更换~~，于是**我们自费**），总算在 2023.3.17 制作出了满足全部要求的小车。然而前两次考核时出了一些意外，小车无法一次完成避障和巡线两个任务，于是我们暂停考核，改改代码，在附近场地调了调车，最后在第三次考核有惊无险地拿到了全部的分数:wink:。
