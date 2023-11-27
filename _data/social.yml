@@ -1,0 +1,5 @@
+valine_comment:
+  enable: false
+  leancloud_appid: 请填入你的App ID
+  leancloud_appkey: 请填入你的App Key
+  placeholder: 说点什么...

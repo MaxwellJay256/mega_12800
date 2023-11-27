@@ -1,57 +1,45 @@
-# Welcome to Jekyll!
-#
-# This config file is meant for settings that affect your whole blog, values
-# which you are expected to set up once and rarely edit after that. If you find
-# yourself editing this file very often, consider using Jekyll's data files
-# feature for the data you need to update frequently.
-#
-# For technical reasons, this file is *NOT* reloaded automatically when you use
-# 'bundle exec jekyll serve'. If you change this file, please restart the server process.
-#
-# If you need help with YAML syntax, here are some quick references for you:
-# https://learn-the-web.algonquindesign.ca/topics/markdown-yaml-cheat-sheet/#yaml
-# https://learnxinyminutes.com/docs/yaml/
-#
-# Site settings
-# These are used to personalize your new site. If you look in the HTML files,
-# you will see them accessed via {{ site.title }}, {{ site.email }}, and so on.
-# You can create any custom variable you would like, and they will be accessible
-# in the templates via {{ site.myvariable }}.
+title: mega_12800 #博客标题
+description: HITSZ 自动化认知与实践课程机器人设计与实践攻略 # 博客描述
+keywords: hitsz,arduino,robotics,automation # 博客关键字
+author: "MaxwellJay256"
 
-title: mega-12800
-email: maxwelljay@jaylab256.onmicrosoft.com
-description: >- # this means to ignore newlines until "baseurl:"
-  Write an awesome description for your new site here. You can edit this
-  line in _config.yml. It will appear in your document head meta (for
-  Google search results) and in your feed.xml site description.
-baseurl: "" # the subpath of your site, e.g. /blog
-url: "https://maxwelljay256.github.io/mega_12800/" # the base hostname & protocol for your site, e.g. http://example.com
-twitter_username: 
-github_username:  MaxwellJay256
+# title hide and show
+hide: (つェ⊂)我藏好啦
+show: ´∇｀ 呀被发现啦~ 
 
-# Build settings
-# theme: minima
-remote_theme: pages-themes/primer@v0.2.0
+baseurl: "/mega_12800" # change this to the subpath of your site, e.g. /blog. Leave it empty if you don't need it.
+url: "maxwelljay256.github.io" # change this to the base hostname & protocol for your site
+buildtime: "1701055608" # 博客建立时的时间戳 可进入 https://tool.lu/timestamp/ 将博客建立时的日期转换成时间戳
+           #The timestamp at the time of blog establishment can be entered at https://tool.lu/timestamp/to convert the date at the time of blog establishment into a timestamp.
+
+PJAX: true # 启用 PJAX，会与评论系统冲突（如不用评论系统建议开启）
+
+paginate: 10 # 同时显示的最大文章数，超过自动分页
+paginate_path: "page:num"
+
+background: https://api.dujin.org/bing/1920.php
+theme_color: 546E7A
+
+# hydrogen-blog date format
+# refer to http://shopify.github.io/liquid/filters/date/ if you want to customize this
+hydrogen-blog:
+  date_format: "%b %-d, %Y"
+
+# MathJax switch
+MathJax: true
+
+#install emoji
 plugins:
-  - jekyll-feed
-  - jekyll-remote-theme
+  - jemoji
 
-# Exclude from processing.
-# The following items will not be processed, by default.
-# Any item listed under the `exclude:` key here will be automatically added to
-# the internal "default list".
-#
-# Excluded items can be processed by explicitly listing the directories or
-# their entries' file path in the `include:` list.
-#
-# exclude:
-#   - .sass-cache/
-#   - .jekyll-cache/
-#   - gemfiles/
-#   - Gemfile
-#   - Gemfile.lock
-#   - node_modules/
-#   - vendor/bundle/
-#   - vendor/cache/
-#   - vendor/gems/
-#   - vendor/ruby/
+# social account
+image:
+twitter:
+  username:
+#  site:
+facebook:
+  #publisher: null
+  #profile_id: null
+  app_id: null
+  #authors: null
+#  admins:
