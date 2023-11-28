@@ -1,0 +1,1 @@
+navigator.serviceWorker&&navigator.serviceWorker.register("/mega_12800/sw.js",{scope:"/"})
